@@ -1,34 +1,33 @@
 package com.camphotoapp.stats.repository;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.camphotoapp.common.model.Comment;
 import org.springframework.stereotype.Repository;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CommentRepository {
 
-    private final DynamoDBMapper dynamoDBMapper;
+    private final DynamoDbTable<Comment> commentTable;
 
-    public CommentRepository(DynamoDBMapper dynamoDBMapper) {
-        this.dynamoDBMapper = dynamoDBMapper;
+    public CommentRepository(DynamoDbTable<Comment> commentTable) {
+        this.commentTable = commentTable;
     }
 
     public void save(Comment comment) {
-        dynamoDBMapper.save(comment);
+        commentTable.putItem(comment);
     }
 
     public List<Comment> findAll() {
-        return dynamoDBMapper.scan(Comment.class, new DynamoDBScanExpression());
+        return commentTable.scan().items().stream().collect(Collectors.toList());
     }
 
-    public List<Comment> findAllSortedInversely() {
-        List<Comment> comments = dynamoDBMapper.scan(Comment.class, new DynamoDBScanExpression());
-        return comments.stream()
-                .sorted(Comparator.comparing(Comment::getTimestamp).reversed())
-                .toList();
-    }
+//    public List<Comment> findAllSortedInversely() {
+//        return commentTable.scan().items().stream()
+//                .sorted(Comparator.comparing(Comment::getTimestamp).reversed())
+//                .collect(Collectors.toList());
+//    }
 }

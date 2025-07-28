@@ -1,24 +1,33 @@
 package com.camphotoapp.stats.config;
 
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import com.camphotoapp.common.model.Comment;
 
 @Configuration
 public class DynamoDbConfig {
     
     @Bean
-    public AmazonDynamoDB amazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder.standard()
-                .withRegion(Regions.US_EAST_1)
+    public DynamoDbClient dynamoDbClient() {
+        return DynamoDbClient.builder()
+                .region(Region.US_EAST_1)
                 .build();
     }
     
     @Bean
-    public DynamoDBMapper dynamoDBMapper(AmazonDynamoDB amazonDynamoDB) {
-        return new DynamoDBMapper(amazonDynamoDB);
+    public DynamoDbEnhancedClient dynamoDbEnhancedClient(DynamoDbClient dynamoDbClient) {
+        return DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(dynamoDbClient)
+                .build();
+    }
+    
+    @Bean
+    public DynamoDbTable<Comment> commentTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table("Comments", TableSchema.fromBean(Comment.class));
     }
 }
