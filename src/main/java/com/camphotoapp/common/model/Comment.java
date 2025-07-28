@@ -1,11 +1,13 @@
 package com.camphotoapp.common.model;
 
+import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 
+@Setter
 @DynamoDbBean
 public class Comment {
     private String commentId;
@@ -27,27 +29,15 @@ public class Comment {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
-    }
-
     @DynamoDbAttribute("type")
     @DynamoDbConvertedBy(CommentTypeConverter.class)
     public CommentType getType() {
         return type;
     }
 
-    public void setType(CommentType type) {
-        this.type = type;
-    }
-
     @DynamoDbAttribute("message")
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     @DynamoDbSortKey
@@ -57,17 +47,9 @@ public class Comment {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
-
     @DynamoDbAttribute("personName")
     public String getPersonName() {
         return personName;
-    }
-
-    public void setPersonName(String personName) {
-        this.personName = personName;
     }
 
     @DynamoDbAttribute("userEmail")
@@ -75,17 +57,9 @@ public class Comment {
         return userEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
     @DynamoDbAttribute("attachments")
     public List<String> getAttachments() {
         return attachments;
-    }
-
-    public void setAttachments(List<String> attachments) {
-        this.attachments = attachments;
     }
 
     @DynamoDbAttribute("status")
@@ -94,26 +68,14 @@ public class Comment {
         return status;
     }
 
-    public void setStatus(CommentStatus status) {
-        this.status = status;
-    }
-
     @DynamoDbAttribute("createdByIp")
     public String getCreatedByIp() {
         return createdByIp;
     }
 
-    public void setCreatedByIp(String createdByIp) {
-        this.createdByIp = createdByIp;
-    }
-
     @DynamoDbAttribute("userAgent")
     public String getUserAgent() {
         return userAgent;
-    }
-
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
     }
 
     @DynamoDbAttribute("locale")
@@ -122,7 +84,4 @@ public class Comment {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
 }

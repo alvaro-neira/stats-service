@@ -25,9 +25,9 @@ public class CommentRepository {
         return commentTable.scan().items().stream().collect(Collectors.toList());
     }
 
-//    public List<Comment> findAllSortedInversely() {
-//        return commentTable.scan().items().stream()
-//                .sorted(Comparator.comparing(Comment::getTimestamp).reversed())
-//                .collect(Collectors.toList());
-//    }
+    public List<Comment> findAllSortedInversely() {
+        List<Comment> comments = commentTable.scan().items().stream().collect(Collectors.toList());
+        comments.sort(Comparator.comparing(Comment::getTimestamp).reversed());
+        return comments;
+    }
 }

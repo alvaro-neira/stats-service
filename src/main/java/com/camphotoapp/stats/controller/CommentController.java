@@ -18,7 +18,7 @@ public class CommentController {
 
     @GetMapping({"/comments", "/comments/"})
     public String showCommentsPage(Model model) {
-        List<Comment> comments = repository.findAll();
+        List<Comment> comments = repository.findAllSortedInversely();
         model.addAttribute("comments", comments);
         return "comments"; // Maps to comments.html
     }
