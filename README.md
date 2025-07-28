@@ -1,2 +1,2 @@
 # stats-service
-CamPhoto Stats Service
+CamPhoto Stats Spring Boot Microservice

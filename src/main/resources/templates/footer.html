@@ -1,0 +1,28 @@
+<div th:fragment="footer">
+    <footer>
+        <div class="footer-links">
+            <a href="index.html" th:text="#{nav.home}">Inicio</a>
+            <a href="support.html" th:text="#{nav.support}">Soporte</a>
+            <a href="privacy.html" th:text="#{nav.privacy}">Política de privacidad</a>
+            <a href="mailto:support@camphotoapp.com" th:text="#{nav.contact}">Contáctanos</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://www.tiktok.com/@camphotoapp_official" target="_blank" rel="noopener noreferrer"
+               class="social-link">
+                <img src="https://camphotoapp.com/images/tiktok-icon.svg" alt="TikTok" class="social-icon">
+            </a>
+            <a href="https://www.youtube.com/@CamPhotoApp" target="_blank" rel="noopener noreferrer"
+               class="social-link">
+                <img src="https://camphotoapp.com/images/youtube-icon.svg" alt="YouTube" class="social-icon">
+            </a>
+        </div>
+        <!--/*@thymesVar id="localeString" type="java.lang.String"*/-->
+        <p th:if="${localeString == 'pt'}"
+           th:text="#{footer.ai.translation.pt}"
+           class="ai-translation-notice"></p>
+        <p th:if="${localeString == 'zh'}"
+           th:text="#{footer.ai.translation.zh}"
+           class="ai-translation-notice"></p>
+        <p th:utext="#{footer.copyright}"></p>
+    </footer>
+</div>

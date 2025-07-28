@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en-US">
+<head th:replace="~{head :: head(#{error.page.title}, #{error.page.description})}"></head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<main>
+    <div class="error-container">
+        <h1 class="error-title" th:text="#{error.title}"></h1>
+        <p class="error-message" th:text="#{error.message}"></p>
+        <a href="index.html" class="button" th:text="#{error.button}"></a>
+    </div>
+</main>
+<script type="module" src="/js/script.js"></script>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<head th:fragment="head(title, description)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <meta name="description" th:content="${description}">
+
+    <link rel="icon" href="https://camphotoapp.com/images/icon.png" type="image/png">
+    <!-- Canonical URL (self-reference) -->
+    <link rel="canonical" href="https://camphotoapp.com/en/">
+
+    <!-- ↓ Alternate language versions ↓ -->
+    <link rel="alternate" hreflang="es-ES" href="https://camphotoapp.com/es-es/">
+    <link rel="alternate" hreflang="es-419" href="https://camphotoapp.com/es/">
+    <link rel="alternate" hreflang="zh-CN" href="https://camphotoapp.com/zh/">
+    <link rel="alternate" hreflang="pt-BR" href="https://camphotoapp.com/pt/">
+    <link rel="alternate" hreflang="x-default" href="https://camphotoapp.com/en/">
+    <link rel="stylesheet" href="https://camphotoapp.com/css/styles.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
