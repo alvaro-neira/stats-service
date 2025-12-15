@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stats-service
+spec:
+  replicas: 1  # How many copies you want
+  selector:
+    matchLabels:
+      app: stats-service
+  template:
+    metadata:
+      labels:
+        app: stats-service
+    spec:
+      containers:
+        - name: stats-service
+          # REPLACE THIS with your actual image path from Artifact Registry
+          image: us-central1-docker.pkg.dev/project1-472613/my-repo/stats-service:v1
+          ports:
+            - containerPort: 5000
+          env:
+            # This tells Kubernetes: "Look inside the secret 'aws-creds' for these values"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-creds
+                  key: aws_access_key_id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-creds
+                  key: aws_secret_access_key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stats-service-lb
+spec:
+  type: LoadBalancer  # This gives you a public IP
+  selector:
+    app: stats-service
+  ports:
+    - port: 80        # The outside world hits port 80
+      targetPort: 5000 # It gets forwarded to your container's port 5000
