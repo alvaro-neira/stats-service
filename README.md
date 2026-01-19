@@ -53,3 +53,24 @@ kubectl get pods --watch
 ~~~bash
 kubectl get service stats-service-lb
 ~~~
+
+## camphoto.app
+~~~bash
+kubectl apply -f managed-cert.yaml
+~~~
+
+~~~bash
+kubectl apply -f k8s-deployment.yaml
+~~~
+
+~~~bash
+kubectl apply -f ingress.yaml
+~~~
+
+~~~bash
+kubectl apply -f backend-config.yaml
+~~~
+
+~~~bash
+kubectl describe managedcertificate camphoto-cert
+~~~

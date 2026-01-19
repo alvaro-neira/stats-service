@@ -15,7 +15,7 @@ spec:
       containers:
         - name: stats-service
           # REPLACE THIS with your actual image path from Artifact Registry
-          image: us-central1-docker.pkg.dev/project1-472613/my-repo/stats-service:v1
+          image: us-central1-docker.pkg.dev/project1-472613/my-repo/stats-service:v2
           ports:
             - containerPort: 5000
           env:
@@ -30,15 +30,26 @@ spec:
                 secretKeyRef:
                   name: aws-creds
                   key: aws_secret_access_key
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: stats-service-lb
+  annotations:
+    # This connects the Service to the config we just made
+    cloud.google.com/backend-config: '{"default": "my-backend-config"}'
 spec:
-  type: LoadBalancer  # This gives you a public IP
+  # CHANGE THIS from LoadBalancer to NodePort
+  type: NodePort
   selector:
     app: stats-service
   ports:
-    - port: 80        # The outside world hits port 80
-      targetPort: 5000 # It gets forwarded to your container's port 5000
+    - port: 80
+      targetPort: 5000
